@@ -1,32 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>My Portfolio</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
+  <meta charset="UTF-8">
+  <title>Portfolio Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-  <!-- HERO -->
-  <section class="hero">
-    <img src="assets/images/hero." alt="Main Work">
-    <div class="hero-text">
-      <h1>My Portfolio</h1>
-      <p>Selected works & media showcase</p>
-    </div>
-  </section>
+  <header class="topbar">
+    <h1>Selected Works</h1>
+    <p>Visual showcase & media portfolio</p>
+  </header>
 
   <!-- GALLERY -->
-  <section class="gallery">
-    <img src="assets/images/p1.jpg">
-    <img src="assets/images/p2.jpg">
-    <img src="assets/images/p3.jpg">
-    <img src="assets/images/p4.jpg">
-    <img src="assets/images/p5.jpg">
-    <img src="assets/images/p6.jpg">
-    <img src="assets/images/p7.jpg">
-    <img src="assets/images/p8.jpg">
-  </section>
+  <main class="gallery">
+    <img src="assets/images/p1.jpg" data-desc="Description for image 1">
+    <img src="assets/images/p2.jpg" data-desc="Description for image 2">
+    <img src="assets/images/p3.jpg" data-desc="Description for image 3">
+    <img src="assets/images/p4.jpg" data-desc="Description for image 4">
+    <img src="assets/images/p5.jpg" data-desc="Description for image 5">
+    <img src="assets/images/p6.jpg" data-desc="Description for image 6">
+    <img src="assets/images/p7.jpg" data-desc="Description for image 7">
+    <img src="assets/images/p8.jpg" data-desc="Description for image 8">
+    <img src="assets/images/p9.jpg" data-desc="Description for image 9">
+  </main>
+
+  <!-- POPUP -->
+  <div class="lightbox" id="lightbox">
+    <span class="close">&times;</span>
+
+    <div class="lightbox-content">
+      <img id="lightbox-img">
+      <p id="lightbox-desc"></p>
+
+      <div class="controls">
+        <button id="zoom-in">＋</button>
+        <button id="zoom-out">－</button>
+      </div>
+    </div>
+  </div>
 
   <!-- VIDEO -->
   <section class="video">
@@ -38,5 +51,6 @@
     </iframe>
   </section>
 
+  <script src="assets/js/gallery.js"></script>
 </body>
 </html>
