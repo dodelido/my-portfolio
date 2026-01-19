@@ -1,3 +1,6 @@
+/* ======================
+   RESET + BASE
+====================== */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -7,22 +10,45 @@
 body {
   background: #0f0f0f;
   color: #fff;
-  font-family: system-ui, sans-serif;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow-x: hidden;
 }
 
-/* TOP */
+/* ======================
+   BACKGROUND LAYER
+====================== */
+.bg-layer {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, #1a1a1a, transparent 40%),
+    radial-gradient(circle at 80% 80%, #111, transparent 40%);
+  filter: blur(24px);
+  z-index: -1;
+  transition: transform 0.1s linear;
+}
+
+/* ======================
+   HEADER
+====================== */
 .topbar {
-  padding: 40px;
+  padding: 48px 24px;
   text-align: center;
 }
 
 .topbar h1 {
-  font-size: 2.5rem;
-  margin-bottom: 8px;
+  font-size: clamp(2rem, 4vw, 2.6rem);
   letter-spacing: 1px;
 }
 
-/* GALLERY */
+.topbar p {
+  opacity: 0.7;
+  margin-top: 8px;
+}
+
+/* ======================
+   GALLERY (Masonry)
+====================== */
 .gallery {
   column-count: 3;
   column-gap: 16px;
@@ -32,42 +58,48 @@ body {
 .gallery img {
   width: 100%;
   margin-bottom: 16px;
-  border-radius: 12px;
+  border-radius: 14px;
   cursor: pointer;
-  transition: transform 0.3s, opacity 0.3s;
+  break-inside: avoid;
+  transition: transform 0.35s ease, opacity 0.35s ease;
 }
 
 .gallery img:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
   opacity: 0.85;
 }
 
-/* LIGHTBOX */
+/* ======================
+   LIGHTBOX
+====================== */
 .lightbox {
   display: none;
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.85);
+  background: rgba(0, 0, 0, 0.88);
   z-index: 1000;
   justify-content: center;
   align-items: center;
 }
 
 .lightbox-content {
-  max-width: 90%;
-  max-height: 90%;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: auto;
   text-align: center;
 }
 
 .lightbox img {
-  max-width: 100%;
-  max-height: 70vh;
-  transition: transform 0.3s ease;
+  max-width: none;
+  max-height: none;
+  cursor: grab;
+  transition: transform 0.25s ease;
 }
 
 .lightbox p {
-  margin-top: 12px;
-  opacity: 0.85;
+  margin-top: 14px;
+  opacity: 0.8;
+  font-size: 0.95rem;
 }
 
 .close {
@@ -76,54 +108,143 @@ body {
   right: 32px;
   font-size: 36px;
   cursor: pointer;
+  opacity: 0.8;
 }
 
-/* CONTROLS */
+.close:hover {
+  opacity: 1;
+}
+
+/* ======================
+   LIGHTBOX CONTROLS
+====================== */
 .controls {
-  margin-top: 12px;
+  margin-top: 14px;
 }
 
 .controls button {
-  background: #222;
+  background: #1e1e1e;
   border: none;
   color: white;
   font-size: 20px;
-  padding: 8px 16px;
+  padding: 8px 18px;
   margin: 0 6px;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background 0.2s ease;
 }
 
-/* MOBILE */
+.controls button:hover {
+  background: #333;
+}
+
+/* ======================
+   VIDEO ROW (Netflix)
+====================== */
+.video-row {
+  position: relative;
+  margin: 80px 0;
+}
+
+/* Scroll container */
+.video-snap {
+  display: flex;
+  gap: 40px;
+  padding: 80px 60px;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+
+  background: radial-gradient(circle at center, #111, #000);
+}
+
+.video-snap iframe {
+  flex: 0 0 80vw;
+  max-width: 1400px;
+  aspect-ratio: 16 / 9;
+
+  scroll-snap-align: center;
+
+  border-radius: 22px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
+
+  transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.video-snap iframe:not(:hover) {
+  opacity: 0.85;
+}
+
+/* hide scrollbar */
+.video-snap::-webkit-scrollbar {
+  display: none;
+}
+
+.video-snap {
+  scrollbar-width: none;
+}
+
+/* ======================
+   VIDEO NAV BUTTONS
+====================== */
+.video-row .nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: none;
+
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  font-size: 32px;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.video-row .nav:hover {
+  background: rgba(0, 0, 0, 0.85);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.video-row .nav.left {
+  left: 20px;
+}
+
+.video-row .nav.right {
+  right: 20px;
+}
+
+/* ======================
+   MOBILE
+====================== */
 @media (max-width: 768px) {
   .gallery {
     column-count: 1;
+    padding: 24px;
+  }
+
+  .video-snap {
+    padding: 60px 20px;
+    gap: 20px;
+  }
+
+  .video-snap iframe {
+    flex: 0 0 92vw;
+  }
+
+  .video-row .nav {
+    display: none; /* มือถือใช้ swipe */
   }
 }
-
-.video-section {
-  width: 100%;
-  padding: 60px 0;
-  background: #000;
-}
-
-.video-section iframe {
-  display: block;
-  width: 90%;
-  max-width: 1200px;
-  aspect-ratio: 16 / 9;
-  margin: auto;
-  border-radius: 16px;
-}
-
-.bg-layer {
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 20%, #1a1a1a, transparent 40%),
-    radial-gradient(circle at 80% 80%, #111, transparent 40%);
-  z-index: -1;
-  transition: transform 0.1s linear;
-}
-
-

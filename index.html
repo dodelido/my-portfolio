@@ -7,8 +7,7 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-    <div class="bg-layer"></div>
-
+  <div class="bg-layer"></div>
 
   <header class="topbar">
     <h1>Selected Works</h1>
@@ -17,23 +16,23 @@
 
   <!-- GALLERY -->
   <main class="gallery">
-    <img src="assets/images/p1.jpg" data-desc="Description for image 1">
-    <img src="assets/images/p2.jpg" data-desc="Description for image 2">
-    <img src="assets/images/p3.jpg" data-desc="Description for image 3">
-    <img src="assets/images/p4.jpg" data-desc="Description for image 4">
-    <img src="assets/images/p5.jpg" data-desc="Description for image 5">
-    <img src="assets/images/p6.jpg" data-desc="Description for image 6">
-    <img src="assets/images/p7.jpg" data-desc="Description for image 7">
-    <img src="assets/images/p8.jpg" data-desc="Description for image 8">
-    <img src="assets/images/p9.jpg" data-desc="Description for image 9">
+    <img src="assets/images/p1.jpg" data-desc="CP-ESPORT ผู้สนับสนุนการแข่ง">
+    <img src="assets/images/p2.jpg" data-desc="CP-ESPORT กำหนดการแข่งขั้น">
+    <img src="assets/images/p3.jpg" data-desc="CP-ESPORT การแข่งขัน ROV รอบ Grand Final">
+    <img src="assets/images/p4.jpg" data-desc="เสื้อ Dek-Tun">
+    <img src="assets/images/p5.jpg" data-desc="แผน Marketing Strategy ของ Project WassapLarbKoi">
+    <img src="assets/images/p6.jpg" data-desc="Logo จังหวัดข.ไข่">
+    <img src="assets/images/p7.jpg" data-desc="Logo WassapLarbKoi">
+    <img src="assets/images/p8.jpg" data-desc="Logo กิจกรรมเสวนา นั่งรอทอฝัน">
+    <img src="assets/images/p9.jpg" data-desc="Resume พิษณุวัชร์ หงส์วิไล">
   </main>
 
-  <!-- POPUP -->
+  <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
     <span class="close">&times;</span>
 
     <div class="lightbox-content">
-      <img id="lightbox-img">
+      <img id="lightbox-img" alt="">
       <p id="lightbox-desc"></p>
 
       <div class="controls">
@@ -43,21 +42,17 @@
     </div>
   </div>
 
-  <!-- VIDEO -->
-  <section class="video">
-    <h2>Featured Videos</h2>
-    <iframe 
-      src="https://www.youtube.com/embed/4gY8A_vuZq8"
-      allowfullscreen>
-    </iframe>
-    <iframe 
-      src="https://www.youtube.com/embed/ghb58FfTAlE"
-      allowfullscreen>
-    </iframe>
-    <iframe 
-      src="https://www.youtube.com/embed/WSYpeedZBEg"
-      allowfullscreen>
-    </iframe>
+  <!-- VIDEO SNAP WITH CONTROLS -->
+  <section class="video-row">
+    <button class="nav left" onclick="scrollVideo(-1)">‹</button>
+
+    <div class="video-snap" id="videoSnap">
+      <iframe src="https://www.youtube.com/embed/4gY8A_vuZq8" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/ghb58FfTAlE" allowfullscreen></iframe>
+      <iframe src="https://www.youtube.com/embed/WSYpeedZBEg" allowfullscreen></iframe>
+    </div>
+
+    <button class="nav right" onclick="scrollVideo(1)">›</button>
   </section>
 
   <script src="assets/js/gallery.js"></script>
