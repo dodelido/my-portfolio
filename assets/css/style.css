@@ -354,3 +354,112 @@ background: linear-gradient(to right, #fff, #a0a0a0); -webkit-background-clip: t
   cursor: pointer;
   backdrop-filter: blur(10px);
 }
+/* =========================================
+   FOOTER STYLES (Cream, Black, Yellow)
+========================================= */
+.main-footer {
+  margin-top: 100px;
+  padding: 80px 5% 40px;
+  background: rgba(12, 12, 12, 0.7); /* ดำโปร่งแสง */
+  backdrop-filter: blur(var(--glass-blur));
+  border-top: 1px solid var(--glass-border);
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1.5fr 1fr;
+  gap: 60px;
+  margin-bottom: 60px;
+}
+
+.footer-logo {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--cream-color);
+  margin-bottom: 20px;
+}
+
+.footer-logo span {
+  color: var(--accent-color); /* จุดสีเหลือง */
+}
+
+.footer-about p {
+  color: #888;
+  max-width: 400px;
+  font-weight: 300;
+}
+
+.footer-grid h3 {
+  color: var(--accent-color);
+  font-size: 1.1rem;
+  margin-bottom: 25px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+.footer-contact ul {
+  list-style: none;
+}
+
+.footer-contact ul li {
+  margin-bottom: 12px;
+  color: var(--cream-color);
+  font-weight: 300;
+}
+
+.footer-contact strong {
+  color: var(--accent-color);
+  display: block;
+  font-size: 0.8rem;
+  margin-bottom: 2px;
+}
+
+.footer-links nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-links a {
+  color: #888;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+
+.footer-links a:hover {
+  color: var(--accent-color);
+  padding-left: 5px;
+}
+
+/* Footer Bottom Bar */
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  padding-top: 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #555;
+  font-size: 0.85rem;
+}
+
+.social-tags span {
+  margin-left: 15px;
+  color: #333;
+  font-weight: bold;
+}
+
+/* Responsive Footer */
+@media (max-width: 992px) {
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: center;
+  }
+  .footer-about p {
+    margin: 0 auto;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    gap: 20px;
+  }
+}
