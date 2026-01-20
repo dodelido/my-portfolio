@@ -1,21 +1,22 @@
 :root {
-  --bg-color: #050505;
-  --glass-bg: rgba(255, 255, 255, 0.03); /* ปรับให้ใสขึ้นเพื่อให้เห็นพื้นหลังชัด */
-  --glass-border: rgba(255, 255, 255, 0.08);
-  --glass-blur: 12px; /* เพิ่มความเบลอให้กระจก */
-  --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  --bg-color: #f0ebdf;       /* Black: พื้นหลังดำลึก */
+  --accent-color: #ffffff;   /* Yellow: สีเหลืองสดใสแบบปุ่มใน Resume */
+  --cream-color: #fdfcf0;    /* Cream: สีครีมสะอาดตา */
+  --glass-bg: rgba(240, 235, 223 0.03);
+  --glass-border: rgba(240, 235, 223, 0.1);
+  --transition-smooth: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
   
-  /* สีของ Aura */
-  --aura-1: #4f2ee8; /* น้ำเงินม่วง */
-  --aura-2: #e82e63; /* ชมพูแดง */
-  --aura-3: #2eadd8; /* ฟ้าสว่าง */
+  /* Aura Colors ใหม่ */
+  --aura-1: #508dff; /* Yellow */
+  --aura-2: #1900ff; /* Cream */
+  --aura-3: #e139e7; /* Dark Grey */
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: var(--bg-color);
-  color: #fff;
+  background-color: var(--bg-color);
+  color: var(--cream-color);
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
@@ -30,8 +31,8 @@ body {
     top: 0; left: 0; width: 100%; height: 100%;
     z-index: -1;
     overflow: hidden;
-    filter: blur(80px); /* เบลอหนักๆ ให้ฟุ้งๆ */
-    opacity: 0.7; /* ปรับความสว่างของพื้นหลัง */
+    filter: blur(100px); /* เพิ่มความฟุ้งให้ดูพรีเมียม */
+    opacity: 0.4;        /* ไม่ให้สีเหลืองกวนสายตาเกินไป */
 }
 
 .blob {
@@ -290,4 +291,66 @@ background: linear-gradient(to right, #fff, #a0a0a0); -webkit-background-clip: t
 }
 .nav-links a:hover::after {
   width: 100%;
+}
+
+:root {
+  --bg-color: #02040a; /* ดำลึกแบบเทคโนโลยี */
+  --accent-color: #3b82f6; /* สีน้ำเงินสว่างแบบ Computer Science */
+  --secondary-color: #8b5cf6; /* สีม่วง Creative */
+  --glass-bg: rgba(10, 15, 30, 0.4);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --transition-smooth: all 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+/* เพิ่ม Style สำหรับ Profile Tag */
+.profile-tag {
+  background: var(--glass-bg);
+  border: 1px solid var(--accent-color);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  color: var(--accent-color);
+  text-transform: uppercase;
+}
+
+/* ปรับปรุงระบบ Lightbox ให้รองรับการ Zoom และ Drag */
+.image-wrapper {
+  cursor: grab; /* เปลี่ยนเป็นมือลาก */
+  overflow: hidden; /* กันภาพล้น */
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.5);
+}
+
+.image-wrapper:active { cursor: grabbing; }
+
+#lightbox-img {
+  max-width: 100%;
+  max-height: 100%;
+  transition: transform 0.2s cubic-bezier(0.1, 0, 0.2, 1); /* ซูมแบบหน่วงนิดๆ */
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+/* ปุ่ม Zoom ให้ดูดีขึ้น */
+.zoom-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 15px;
+}
+
+.zoom-controls button {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  color: white;
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
 }

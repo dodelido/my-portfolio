@@ -108,5 +108,63 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('.scroll-hidden').forEach(el => {
     scrollObserver.observe(el);
   });
+});
 
+// ตัวแปรสำหรับระบบ Zoom & Drag
+let scale = 1;
+let isDragging = false;
+let startX, startY, translateX = 0, translateY = 0;
+
+const imageWrapper = document.querySelector('.image-wrapper');
+
+// ฟังก์ชันอัปเดตตำแหน่งและขนาดภาพ
+function updateImageTransform() {
+    lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+}
+
+// ระบบ Zoom
+document.getElementById('zoom-in').addEventListener('click', (e) => {
+    e.stopPropagation();
+    scale = Math.min(scale + 0.5, 5); // ซูมได้สูงสุด 5 เท่า
+    updateImageTransform();
+});
+
+document.getElementById('zoom-out').addEventListener('click', (e) => {
+    e.stopPropagation();
+    scale = Math.max(scale - 0.5, 1); // ซูมออกได้ต่ำสุดคือขนาดปกติ
+    if (scale === 1) { translateX = 0; translateY = 0; } // รีเซ็ตตำแหน่งถ้าขนาดปกติ
+    updateImageTransform();
+});
+
+// ระบบ Drag (ลากภาพ)
+imageWrapper.addEventListener('mousedown', (e) => {
+    if (scale > 1) { // ลากได้เฉพาะตอนที่ซูมอยู่เท่านั้น
+        isDragging = true;
+        startX = e.clientX - translateX;
+        startY = e.clientY - translateY;
+        imageWrapper.style.cursor = 'grabbing';
+    }
+});
+
+window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    translateX = e.clientX - startX;
+    translateY = e.clientY - startY;
+    updateImageTransform();
+});
+
+window.addEventListener('mouseup', () => {
+    isDragging = false;
+    imageWrapper.style.cursor = 'grab';
+});
+
+// รีเซ็ตค่าเมื่อเปิดภาพใหม่
+galleryItems.forEach(item => {
+    item.addEventListener('click', () => {
+        scale = 1;
+        translateX = 0;
+        translateY = 0;
+        updateImageTransform();
+        // ... โค้ดเปิด Lightbox เดิม ...
+    });
 });
