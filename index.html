@@ -1,59 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="UTF-8">
-  <title>Portfolio Gallery</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phisanuwat | Visual Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <div class="bg-layer"></div>
 
-  <header class="topbar">
-    <h1>Selected Works</h1>
-    <p>Visual showcase & media portfolio</p>
-  </header>
+  <div class="bg-container">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
 
-  <!-- GALLERY -->
-  <main class="gallery">
-    <img src="assets/images/p1.jpg" data-desc="CP-ESPORT ผู้สนับสนุนการแข่ง">
-    <img src="assets/images/p2.jpg" data-desc="CP-ESPORT กำหนดการแข่งขั้น">
-    <img src="assets/images/p3.jpg" data-desc="CP-ESPORT การแข่งขัน ROV รอบ Grand Final">
-    <img src="assets/images/p4.jpg" data-desc="เสื้อ Dek-Tun">
-    <img src="assets/images/p5.jpg" data-desc="แผน Marketing Strategy ของ Project WassapLarbKoi">
-    <img src="assets/images/p6.jpg" data-desc="Logo จังหวัดข.ไข่">
-    <img src="assets/images/p7.jpg" data-desc="Logo WassapLarbKoi">
-    <img src="assets/images/p8.jpg" data-desc="Logo กิจกรรมเสวนา นั่งรอทอฝัน">
-    <img src="assets/images/p9.jpg" data-desc="Resume พิษณุวัชร์ หงส์วิไล">
+  <div class="cursor-follower"></div>
+
+  <nav class="navbar">
+    <div class="logo">PH.</div>
+    <div class="nav-links">
+      <a href="#gallery">Gallery</a>
+      <a href="#video">Showreel</a>
+    </div>
+  </nav>
+
+  <main class="parallax-content">
+    
+    <header class="hero">
+      <h1 class="reveal-text">Phisanuwat Hongwilai</h1>
+      <p class="fade-in">Visual Storyteller & Media Designer</p>
+    </header>
+
+    <section id="gallery" class="container">
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="assets/images/p1.jpg" alt="CP-ESPORT Partners" loading="lazy">
+          <figcaption>CP-ESPORT Partners</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="assets/images/p2.jpg" alt="CP-ESPORT Match Schedule" loading="lazy">
+          <figcaption>CP-ESPORT Match Schedule</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="assets/images/p3.jpg" alt="CP-ESPORT ROV Grand Final" loading="lazy">
+          <figcaption>CP-ESPORT ROV Grand Final</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="assets/images/p4.jpg" alt="Dek-Tun Shirt" loading="lazy">
+          <figcaption>Dek-Tun Shirt</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="assets/images/p5.jpg" alt="Marketing Strategy" loading="lazy">
+          <figcaption>Marketing Strategy WassapLarbKoi Project</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="assets/images/p6.jpg" alt="Logo จังหวัดข.ไข่" loading="lazy">
+          <figcaption>Logo จังหวัดข.ไข่</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="assets/images/p7.jpg" alt="Logo WassapLarbKoi" loading="lazy">
+          <figcaption>Logo WassapLarbKoi</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="assets/images/p8.jpg" alt="Logo กิจกรรมเสวนา" loading="lazy">
+          <figcaption>Logo กิจกรรมเสวนา นั่งรอทอฝัน</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="assets/images/p9.jpg" alt="Resume พิษณุวัชร์" loading="lazy">
+          <figcaption>Resume พิษณุวัชร์ หงส์วิไล</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="video" class="video-section">
+      <h2 class="section-title scroll-hidden">Video Showcase</h2>
+      <div class="video-slider-wrapper">
+        <button class="nav-btn left" onclick="scrollVideo(-1)"><span>‹</span></button>
+        <div class="video-snap" id="videoSnap">
+           <div class="video-card"><iframe src="https://www.youtube.com/embed/4gY8A_vuZq8" frameborder="0" allowfullscreen></iframe></div>
+           <div class="video-card"><iframe src="https://www.youtube.com/embed/ghb58FfTAlE" frameborder="0" allowfullscreen></iframe></div>
+           <div class="video-card"><iframe src="https://www.youtube.com/embed/WSYpeedZBEg" frameborder="0" allowfullscreen></iframe></div>
+           <div class="video-card"><iframe src="https://www.youtube.com/embed/UQHql4HaDB8" frameborder="0" allowfullscreen></iframe></div>
+        </div>
+        <button class="nav-btn right" onclick="scrollVideo(1)"><span>›</span></button>
+      </div>
+    </section>
+
   </main>
 
-  <!-- LIGHTBOX -->
   <div class="lightbox" id="lightbox">
-    <span class="close">&times;</span>
-
-    <div class="lightbox-content">
-      <img id="lightbox-img" alt="">
-      <p id="lightbox-desc"></p>
-
-      <div class="controls">
-        <button id="zoom-in">＋</button>
-        <button id="zoom-out">－</button>
+    <div class="lightbox-overlay"></div>
+    <div class="lightbox-window">
+      <button class="close-btn">&times;</button>
+      <div class="image-wrapper">
+        <img id="lightbox-img" src="" alt="">
+      </div>
+      <div class="info-panel">
+        <p id="lightbox-desc"></p>
+        <div class="zoom-controls">
+          <button id="zoom-out">−</button>
+          <button id="zoom-in">＋</button>
+        </div>
       </div>
     </div>
   </div>
-
-  <!-- VIDEO SNAP WITH CONTROLS -->
-  <section class="video-row">
-    <button class="nav left" onclick="scrollVideo(-1)">‹</button>
-
-    <div class="video-snap" id="videoSnap">
-      <iframe src="https://www.youtube.com/embed/4gY8A_vuZq8" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/ghb58FfTAlE" allowfullscreen></iframe>
-      <iframe src="https://www.youtube.com/embed/WSYpeedZBEg" allowfullscreen></iframe>
-    </div>
-
-    <button class="nav right" onclick="scrollVideo(1)">›</button>
-  </section>
 
   <script src="assets/js/gallery.js"></script>
 </body>

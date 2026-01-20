@@ -1,250 +1,293 @@
-/* ======================
-   RESET + BASE
-====================== */
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+:root {
+  --bg-color: #050505;
+  --glass-bg: rgba(255, 255, 255, 0.03); /* ปรับให้ใสขึ้นเพื่อให้เห็นพื้นหลังชัด */
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-blur: 12px; /* เพิ่มความเบลอให้กระจก */
+  --transition-smooth: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+  
+  /* สีของ Aura */
+  --aura-1: #4f2ee8; /* น้ำเงินม่วง */
+  --aura-2: #e82e63; /* ชมพูแดง */
+  --aura-3: #2eadd8; /* ฟ้าสว่าง */
 }
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
 body {
-  background: #0f0f0f;
+  background: var(--bg-color);
   color: #fff;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.6;
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
-/* ======================
-   BACKGROUND LAYER
-====================== */
-.bg-layer {
-  position: fixed;
-  inset: 0;
-  background:
-    radial-gradient(circle at 20% 20%, #1a1a1a, transparent 40%),
-    radial-gradient(circle at 80% 80%, #111, transparent 40%);
-  filter: blur(24px);
-  z-index: -1;
-  transition: transform 0.1s linear;
+/* =========================================
+   NEW: ANIMATED BACKGROUND AURAS
+========================================= */
+.bg-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    z-index: -1;
+    overflow: hidden;
+    filter: blur(80px); /* เบลอหนักๆ ให้ฟุ้งๆ */
+    opacity: 0.7; /* ปรับความสว่างของพื้นหลัง */
 }
 
-/* ======================
-   HEADER
-====================== */
-.topbar {
-  padding: 48px 24px;
-  text-align: center;
+.blob {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen; /* ทำให้สีผสมกันสวยๆ */
+    animation: float-aura infinite ease-in-out alternate;
 }
 
-.topbar h1 {
-  font-size: clamp(2rem, 4vw, 2.6rem);
-  letter-spacing: 1px;
+.blob-1 {
+    width: 70vw; height: 70vw;
+    background: var(--aura-1);
+    top: -20%; left: -10%;
+    animation-duration: 25s;
 }
 
-.topbar p {
-  opacity: 0.7;
-  margin-top: 8px;
+.blob-2 {
+    width: 60vw; height: 60vw;
+    background: var(--aura-2);
+    bottom: -20%; right: -10%;
+    animation-duration: 30s;
+    animation-delay: -5s;
 }
 
-/* ======================
-   GALLERY (Masonry)
-====================== */
-.gallery {
-  column-count: 3;
-  column-gap: 16px;
-  padding: 40px;
+.blob-3 {
+    width: 50vw; height: 50vw;
+    background: var(--aura-3);
+    bottom: 30%; left: 30%;
+    animation-duration: 35s;
+    animation-delay: -10s;
 }
 
-.gallery img {
-  width: 100%;
-  margin-bottom: 16px;
-  border-radius: 14px;
-  cursor: pointer;
-  break-inside: avoid;
-  transition: transform 0.35s ease, opacity 0.35s ease;
+@keyframes float-aura {
+    0% { transform: translate(0, 0) scale(1) rotate(0deg); }
+    33% { transform: translate(10vw, -15vh) scale(1.1) rotate(10deg); }
+    66% { transform: translate(-15vw, 10vh) scale(0.9) rotate(-5deg); }
+    100% { transform: translate(0, 0) scale(1) rotate(0deg); }
 }
 
-.gallery img:hover {
-  transform: scale(1.03);
-  opacity: 0.85;
+/* =========================================
+   GLASSMORPHISM REFINEMENTS
+========================================= */
+/* Navbar: เพิ่มความชัดของกระจก */
+.navbar {
+  display: flex; justify-content: space-between; padding: 25px 5%;
+  position: fixed; top: 0; width: 100%; z-index: 100;
+  /* กระจกที่ชัดขึ้น */
+  background: rgba(5, 5, 5, 0.3);
+  backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid var(--glass-border);
+}
+.nav-links a { color: #aaa; text-decoration: none; margin-left: 30px; font-weight: 300; letter-spacing: 1px; transition: color 0.3s; }
+.nav-links a:hover { color: #fff; }
+.logo { font-weight: 700; font-size: 1.2rem; letter-spacing: 1px; }
+
+
+/* Hero Section */
+.parallax-content {
+    /* เตรียมไว้สำหรับ JS Parallax */
+    transition: transform 0.1s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.hero { height: 60vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+.hero h1 { font-size: clamp(3rem, 8vw, 6rem); font-weight: 800; letter-spacing: -2px; margin-bottom: 15px;
+background: linear-gradient(to right, #fff, #a0a0a0); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.hero p { font-size: 1.1rem; color: #888; font-weight: 300; }
+
+
+/* Gallery Grid (Masonry Style) */
+.gallery-grid {
+    /* ใช้ column-count แบบเดิมง่ายกว่าสำหรับ masonry แท้ๆ */
+    column-count: 3;
+    column-gap: 20px;
+    padding: 0 5%;
 }
 
-/* ======================
-   LIGHTBOX
-====================== */
-.lightbox {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.88);
-  z-index: 1000;
-  justify-content: center;
-  align-items: center;
-}
-
-.lightbox-content {
-  max-width: 90vw;
-  max-height: 90vh;
-  overflow: auto;
-  text-align: center;
-}
-
-.lightbox img {
-  max-width: none;
-  max-height: none;
-  cursor: grab;
-  transition: transform 0.25s ease;
-}
-
-.lightbox p {
-  margin-top: 14px;
-  opacity: 0.8;
-  font-size: 0.95rem;
-}
-
-.close {
-  position: absolute;
-  top: 24px;
-  right: 32px;
-  font-size: 36px;
-  cursor: pointer;
-  opacity: 0.8;
-}
-
-.close:hover {
-  opacity: 1;
-}
-
-/* ======================
-   LIGHTBOX CONTROLS
-====================== */
-.controls {
-  margin-top: 14px;
-}
-
-.controls button {
-  background: #1e1e1e;
-  border: none;
-  color: white;
-  font-size: 20px;
-  padding: 8px 18px;
-  margin: 0 6px;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.controls button:hover {
-  background: #333;
-}
-
-/* ======================
-   VIDEO ROW (Netflix)
-====================== */
-.video-row {
+.gallery-item {
   position: relative;
-  margin: 80px 0;
-}
-
-/* Scroll container */
-.video-snap {
-  display: flex;
-  gap: 40px;
-  padding: 80px 60px;
-
-  overflow-x: auto;
-  overflow-y: hidden;
-
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-
-  background: radial-gradient(circle at center, #111, #000);
-}
-
-.video-snap iframe {
-  flex: 0 0 80vw;
-  max-width: 1400px;
-  aspect-ratio: 16 / 9;
-
-  scroll-snap-align: center;
-
-  border-radius: 22px;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.65);
-
-  transition: transform 0.35s ease, opacity 0.35s ease;
-}
-
-.video-snap iframe:not(:hover) {
-  opacity: 0.85;
-}
-
-/* hide scrollbar */
-.video-snap::-webkit-scrollbar {
-  display: none;
-}
-
-.video-snap {
-  scrollbar-width: none;
-}
-
-/* ======================
-   VIDEO NAV BUTTONS
-====================== */
-.video-row .nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 5;
-
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  border: none;
-
-  background: rgba(0, 0, 0, 0.6);
-  color: white;
-  font-size: 32px;
+  margin-bottom: 20px; /* ระยะห่างแนวตั้ง */
+  break-inside: avoid; /* ห้ามตัดครึ่งรูป */
+  border-radius: 16px;
+  overflow: hidden;
+  /* Glass Effect */
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+  transition: var(--transition-smooth);
   cursor: pointer;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.video-row .nav:hover {
-  background: rgba(0, 0, 0, 0.85);
-  transform: translateY(-50%) scale(1.1);
+.gallery-item img { width: 100%; display: block; transition: var(--transition-smooth); }
+
+.gallery-item:hover {
+    transform: translateY(-5px); /* ลอยขึ้นนิดนึง */
+    box-shadow: 0 20px 40px -15px rgba(0,0,0,0.3);
+    border-color: rgba(255,255,255,0.2);
+}
+.gallery-item:hover img { transform: scale(1.03); }
+
+.gallery-item figcaption {
+  position: absolute; bottom: 0; left: 0; width: 100%;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+  opacity: 0; transition: var(--transition-smooth);
+  font-size: 0.9rem; font-weight: 300;
+}
+.gallery-item:hover figcaption { opacity: 1; }
+
+
+/* Video Section */
+.video-section { padding: 100px 5%; }
+.section-title { font-size: 2rem; font-weight: 700; margin-bottom: 40px; letter-spacing: -1px; }
+.video-slider-wrapper { position: relative; }
+
+/* ปุ่ม Nav สำหรับวิดีโอ */
+.nav-btn {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+    width: 50px; height: 50px;
+    border-radius: 50%; border: 1px solid var(--glass-border);
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(var(--glass-blur));
+    color: #fff; font-size: 24px; cursor: pointer;
+    transition: all 0.3s; display: flex; align-items: center; justify-content: center;
+}
+.nav-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.3); }
+.nav-btn.left { left: -25px; }
+.nav-btn.right { right: -25px; }
+.nav-btn span { margin-top: -4px; } /* จัดกลางลูกศร */
+
+.video-snap {
+  display: flex; gap: 30px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 20px 0; scrollbar-width: none;
+}
+.video-snap::-webkit-scrollbar { display: none; }
+
+.video-card {
+  flex: 0 0 75vw; /* กว้าง 75% ของจอ */
+  aspect-ratio: 16/9;
+  scroll-snap-align: center;
+  border-radius: 24px;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  transition: var(--transition-smooth);
+}
+.video-card iframe { width: 100%; height: 100%; }
+.video-card:hover { transform: scale(1.01); }
+
+
+/* Lightbox (Modern) */
+.lightbox {
+  position: fixed; inset: 0; z-index: 2000;
+  display: none; align-items: center; justify-content: center;
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.lightbox.active { display: flex; opacity: 1; }
+
+.lightbox-overlay {
+  position: absolute; inset: 0;
+  background: rgba(0,0,0,0.8);
+  backdrop-filter: blur(20px); /* เบลอหลัง Lightbox */
 }
 
-.video-row .nav.left {
-  left: 20px;
+.lightbox-window {
+  position: relative; z-index: 10;
+  max-width: 90vw; max-height: 90vh;
+  text-align: center;
 }
 
-.video-row .nav.right {
-  right: 20px;
+.image-wrapper {
+    border-radius: 16px; overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.5);
 }
+#lightbox-img { width: auto; height: auto; max-width: 100%; max-height: 80vh; display: block; }
+#lightbox-desc { margin-top: 15px; font-weight: 300; color: #ccc; }
+.close-btn {
+    position: absolute; top: -40px; right: 0;
+    background: none; border: none; color: #fff; font-size: 36px; cursor: pointer;
+    opacity: 0.7; transition: opacity 0.3s;
+}
+.close-btn:hover { opacity: 1; }
 
-/* ======================
-   MOBILE
-====================== */
+
+/* Responsive */
 @media (max-width: 768px) {
-  .gallery {
-    column-count: 1;
-    padding: 24px;
-  }
+    .gallery-grid { column-count: 1; }
+    .hero h1 { font-size: 3rem; }
+    .video-card { flex: 0 0 90vw; }
+    
+}
 
-  .video-snap {
-    padding: 60px 20px;
-    gap: 20px;
-  }
+/* =========================================
+   NEW: COOL TEXT ANIMATIONS
+========================================= */
 
-  .video-snap iframe {
-    flex: 0 0 92vw;
-  }
+/* 1. Hero Title - Cinematic Letter Reveal */
+/* คลาสนี้ JS จะสร้างให้ span แต่ละตัว */
+.char-reveal {
+  display: inline-block;
+  opacity: 0;
+  filter: blur(15px); /* เริ่มต้นแบบเบลอๆ */
+  transform: translateY(50px) scale(1.5); /* เริ่มต้นอยู่ต่ำและขยายใหญ่ */
+  animation: cinemaReveal 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
 
-  .video-row .nav {
-    display: none; /* มือถือใช้ swipe */
+/* คีย์เฟรมให้ตัวอักษรรวมร่าง */
+@keyframes cinemaReveal {
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
   }
+}
+
+/* 2. Hero Subtitle - Smooth Fade Up */
+.hero p.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  /* เริ่มเล่น animation หลังจากชื่อขึ้นมาแล้ว 0.8 วินาที */
+  animation: fadeUpSmooth 1s ease-out 0.8s forwards;
+}
+
+@keyframes fadeUpSmooth {
+  to {
+    opacity: 0.8; /* ให้ตัวหนังสือสีจางกว่าหัวข้อนิดหน่อยตามดีไซน์เดิม */
+    transform: translateY(0);
+  }
+}
+
+/* 3. Section Title & General Scroll Reveal */
+/* คลาสเริ่มต้นสำหรับของที่จะให้โผล่ตอนเลื่อนมาเจอ */
+.scroll-hidden {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateY(40px) scale(0.95);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* คลาสที่จะถูกเติมเมื่อเลื่อนมาเจอ (JS จะเติมให้) */
+.scroll-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+}
+
+/* เพิ่มลูกเล่นให้ Navbar Link เวลามีเมาส์ชี้ */
+.nav-links a {
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0; height: 2px;
+  bottom: -5px; left: 0;
+  background: linear-gradient(90deg, var(--aura-3), var(--aura-2));
+  transition: width 0.3s ease;
+}
+.nav-links a:hover::after {
+  width: 100%;
 }
