@@ -3,148 +3,422 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Phisanuwat | Visual Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <title>Phisanuwat Hongwilai — Creative Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0f0e0c;
+      --paper: #f5f2ec;
+      --cream: #ede9df;
+      --accent: #c85a2a;
+      --muted: #7a7570;
+      --line: #d4cfc6;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--paper); color: var(--ink); overflow-x: hidden; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.1rem 3rem; background: var(--paper); border-bottom: 1px solid var(--line);
+    }
+    .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; color: var(--ink); text-decoration: none; }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; align-items: center; }
+    .nav-links a { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-hire { padding: 0.5rem 1.2rem; border: 1px solid var(--ink); color: var(--ink) !important; transition: all 0.2s !important; }
+    .nav-hire:hover { background: var(--ink); color: var(--paper) !important; }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh; padding: 100px 3rem 3rem;
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 4rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-eyebrow {
+      font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem;
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .hero-eyebrow::before { content: ''; width: 2rem; height: 1px; background: var(--accent); display: block; }
+    .hero-name { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5.5vw, 5.5rem); font-weight: 300; line-height: 1.0; letter-spacing: -0.02em; }
+    .hero-name em { font-style: italic; color: var(--accent); }
+    .hero-surname { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5.5vw, 5.5rem); font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 2rem; }
+    .hero-roles { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 2rem; }
+    .role-tag { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.3rem 0.8rem; border: 1px solid var(--line); color: var(--muted); background: var(--cream); }
+    .hero-desc { font-size: 0.9rem; line-height: 1.8; color: var(--muted); max-width: 400px; }
+
+    .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .stat-card { padding: 1.5rem; border: 1px solid var(--line); background: var(--cream); }
+    .stat-card.dark { grid-column: span 2; background: var(--ink); color: var(--paper); }
+    .stat-card.dark .stat-label { color: var(--muted); }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; line-height: 1; margin-bottom: 0.2rem; }
+    .stat-label { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+    /* SECTION HEADER */
+    .sec-header {
+      padding: 3rem 3rem 0;
+      display: flex; align-items: baseline; justify-content: space-between;
+      border-top: 1px solid var(--line);
+    }
+    .sec-title-wrap { display: flex; align-items: baseline; gap: 1.2rem; }
+    .sec-num { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--accent); letter-spacing: 0.1em; }
+    .sec-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.8rem, 3.5vw, 3rem); font-weight: 300; letter-spacing: -0.02em; }
+    .sec-sub { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+    /* FILTER */
+    .filter-bar { padding: 1.25rem 3rem; display: flex; gap: 0.4rem; flex-wrap: wrap; border-bottom: 1px solid var(--line); background: var(--cream); }
+    .fbtn { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 0.4rem 0.9rem; background: none; border: 1px solid var(--line); color: var(--muted); cursor: pointer; transition: all 0.2s; }
+    .fbtn:hover, .fbtn.active { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+
+    /* WORK CARDS */
+    .work-list { display: flex; flex-direction: column; margin: 2rem 3rem 5rem; border: 1px solid var(--line); }
+
+    .work-card {
+      display: grid; grid-template-columns: 52% 48%; min-height: 360px;
+      border-bottom: 1px solid var(--line); transition: background 0.25s;
+    }
+    .work-card:last-child { border-bottom: none; }
+    .work-card:nth-child(even) { grid-template-columns: 48% 52%; }
+    .work-card:nth-child(even) .wimg { order: 2; }
+    .work-card:nth-child(even) .wtxt { order: 1; border-left: none; border-right: 1px solid var(--line); }
+    .work-card:hover { background: var(--cream); }
+
+    /* Image pane */
+    .wimg { position: relative; overflow: hidden; cursor: zoom-in; background: #1c1a18; }
+    .wimg img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.55s ease, filter 0.4s; filter: grayscale(8%); }
+    .work-card:hover .wimg img { transform: scale(1.04); filter: grayscale(0%); }
+    .wimg-overlay { position: absolute; inset: 0; background: rgba(15,14,12,0.55); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; z-index: 1; }
+    .wimg:hover .wimg-overlay { opacity: 1; }
+    .zoom-lbl { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--paper); border: 1px solid rgba(255,255,255,0.5); padding: 0.45rem 1rem; }
+    .wnum { position: absolute; top: 1rem; left: 1rem; font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; background: var(--accent); color: var(--paper); padding: 0.2rem 0.55rem; z-index: 2; }
+
+    /* Text pane */
+    .wtxt { padding: 2.5rem 2.75rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--line); }
+    .wtag { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.6rem; }
+    .wtag::before { content: ''; width: 1.25rem; height: 1px; background: var(--accent); display: block; }
+    .wtitle { font-family: 'Cormorant Garamond', serif; font-size: clamp(1.5rem, 2.2vw, 2.2rem); font-weight: 400; line-height: 1.2; letter-spacing: -0.01em; color: var(--ink); margin-bottom: 1.1rem; }
+    .wdesc { font-size: 0.855rem; line-height: 1.85; color: var(--muted); margin-bottom: 1.4rem; }
+    .wkeys { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .wkey { font-family: 'Space Mono', monospace; font-size: 0.56rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.22rem 0.6rem; border: 1px solid var(--line); color: var(--muted); transition: border-color 0.2s; }
+    .work-card:hover .wkey { border-color: #b0a9a0; }
+
+    /* VIDEO */
+    .video-grid { padding: 2rem 3rem 5rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .vid-card { border: 1px solid var(--line); overflow: hidden; background: var(--ink); }
+    .vid-label { padding: 0.65rem 1rem; background: var(--cream); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
+    .vid-label span { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .vid-label span:last-child { color: var(--accent); }
+    .vid-card iframe { width: 100%; aspect-ratio: 16/9; display: block; border: none; }
+
+    /* INFO STRIP */
+    .info-strip { padding: 4rem 3rem; background: var(--ink); color: var(--paper); display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; border-top: 1px solid var(--line); }
+    .iblock h3 { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.25rem; }
+    .iblock p, .iblock li { font-size: 0.875rem; line-height: 1.85; color: #c0bab0; }
+    .iblock ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .iblock li { display: flex; align-items: flex-start; gap: 0.65rem; }
+    .iblock li::before { content: '—'; color: var(--accent); flex-shrink: 0; }
+    .skill-list { display: flex; flex-direction: column; gap: 1rem; }
+    .skill-row { display: flex; flex-direction: column; gap: 0.3rem; }
+    .skill-name { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: #c0bab0; }
+    .skill-track { height: 2px; background: #2a2825; }
+    .skill-fill { height: 100%; background: var(--accent); width: 0; transition: width 1.2s ease; }
+
+    /* FOOTER */
+    footer { padding: 1.75rem 3rem; background: var(--ink); border-top: 1px solid #252220; display: flex; align-items: center; justify-content: space-between; }
+    footer p { font-family: 'Space Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em; color: #4a4540; }
+    .footer-tags { display: flex; gap: 1.2rem; }
+    .footer-tags span { font-family: 'Space Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; text-transform: uppercase; color: #3a3530; }
+
+    /* LIGHTBOX */
+    .lightbox { display: none; position: fixed; inset: 0; z-index: 999; background: rgba(10,9,8,0.96); align-items: center; justify-content: center; }
+    .lightbox.open { display: flex; }
+    .lb-inner { max-width: 82vw; display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    .lb-inner img { max-width: 100%; max-height: 78vh; object-fit: contain; display: block; }
+    .lb-cap { font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+    .lb-close { position: fixed; top: 1.75rem; right: 2.5rem; font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); background: none; border: 1px solid #3a3530; padding: 0.45rem 0.9rem; cursor: pointer; transition: all 0.2s; }
+    .lb-close:hover { color: var(--paper); border-color: var(--paper); }
+    .lb-nav { position: fixed; top: 50%; transform: translateY(-50%); }
+    .lb-nav.prev { left: 1.75rem; }
+    .lb-nav.next { right: 1.75rem; }
+    .lb-nav button { font-size: 1.1rem; color: var(--muted); background: none; border: 1px solid #3a3530; width: 2.75rem; height: 2.75rem; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; justify-content: center; }
+    .lb-nav button:hover { color: var(--paper); border-color: var(--paper); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.in { opacity: 1; transform: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      .hero { grid-template-columns: 1fr; padding: 90px 1.5rem 3rem; gap: 2rem; }
+      .hero-stats { grid-template-columns: repeat(3, 1fr); }
+      .stat-card.dark { grid-column: span 3; }
+      .sec-header, .filter-bar { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .work-list { margin: 1.5rem 1.5rem 4rem; }
+      .work-card { grid-template-columns: 1fr !important; min-height: unset; }
+      .work-card:nth-child(even) .wimg { order: 1; }
+      .work-card:nth-child(even) .wtxt { order: 2; border-right: none; border-top: 1px solid var(--line); }
+      .wimg { min-height: 220px; }
+      .wtxt { border-left: none !important; border-top: 1px solid var(--line); padding: 1.75rem 1.5rem; }
+      .video-grid { grid-template-columns: 1fr; padding: 1.5rem 1.5rem 3rem; }
+      .info-strip { grid-template-columns: 1fr; padding: 2.5rem 1.5rem; gap: 2rem; }
+      footer { padding: 1.5rem; flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+  </style>
 </head>
 <body>
 
-  <div class="bg-container">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
+<nav>
+  <a class="nav-logo" href="#">Phisanuwat<span>.</span></a>
+  <div class="nav-links">
+    <a href="#works">Gallery</a>
+    <a href="#video">Video</a>
+    <a href="#about">About</a>
+    <a href="mailto:phisanuwat.h@kkumail.com" class="nav-hire">Hire Me</a>
   </div>
+</nav>
 
-  <div class="cursor-follower"></div>
-
-  <nav class="navbar">
-    <div class="logo">PH.</div>
-    <div class="nav-links">
-      <a href="#gallery">Gallery</a>
-      <a href="#video">Showreel</a>
+<section class="hero">
+  <div>
+    <div class="hero-eyebrow">Computer Science @ KKU · Khon Kaen</div>
+    <h1 class="hero-name"><em>Phisanuwat</em></h1>
+    <h1 class="hero-surname">Hongwilai</h1>
+    <div class="hero-roles">
+      <span class="role-tag">Visual Storyteller</span>
+      <span class="role-tag">Graphic Designer</span>
+      <span class="role-tag">Video Editor</span>
+      <span class="role-tag">Brand Strategist</span>
     </div>
-  </nav>
+    <p class="hero-desc">นักศึกษาวิทยาลัยการคอมพิวเตอร์ มหาวิทยาลัยขอนแก่น มุ่งมั่นในการสร้างสรรค์งานออกแบบและสื่อที่ผสมผสานความคิดสร้างสรรค์กับกลยุทธ์ด้านแบรนด์</p>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-card dark"><div class="stat-num">9+</div><div class="stat-label">Projects Completed</div></div>
+    <div class="stat-card"><div class="stat-num">5</div><div class="stat-label">Video Works</div></div>
+    <div class="stat-card"><div class="stat-num">3+</div><div class="stat-label">Brand Identities</div></div>
+    <div class="stat-card"><div class="stat-num">∞</div><div class="stat-label">Ideas</div></div>
+  </div>
+</section>
 
-  <main class="parallax-content">
-    
-   <header class="hero">
-    <div class="profile-tag scroll-hidden">Computer Science @ KKU</div>
-    <h1 class="section-title scroll-hidden">Phisanuwat Hongwilai</h1>
-    <p class="fade-in">Visual Storyteller • Graphic Designer • Video Editor</p>
-  
-   </header>
+<div class="sec-header reveal">
+  <div class="sec-title-wrap"><span class="sec-num">01</span><h2 class="sec-title" id="works">Selected Works</h2></div>
+  <span class="sec-sub">Graphic & Visual Design</span>
+</div>
 
-    <section id="gallery" class="container">
-      <div class="gallery-grid">
-        <figure class="gallery-item">
-          <img src="assets/images/p1.jpg" alt="CP-ESPORT Partners" loading="lazy">
-          <figcaption>CP-ESPORT Partners</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/images/p2.jpg" alt="CP-ESPORT Match Schedule" loading="lazy">
-          <figcaption>CP-ESPORT Match Schedule</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/images/p3.jpg" alt="CP-ESPORT ROV Grand Final" loading="lazy">
-          <figcaption>CP-ESPORT ROV Grand Final</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/images/p4.jpg" alt="Dek-Tun Shirt" loading="lazy">
-          <figcaption>Dek-Tun Shirt</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/images/p5.jpg" alt="Marketing Strategy" loading="lazy">
-          <figcaption>Marketing Strategy WassapLarbKoi Project</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/images/p6.jpg" alt="Logo จังหวัดข.ไข่" loading="lazy">
-          <figcaption>Logo จังหวัดข.ไข่</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/images/p7.jpg" alt="Logo WassapLarbKoi" loading="lazy">
-          <figcaption>Logo WassapLarbKoi</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/images/p8.jpg" alt="Logo กิจกรรมเสวนา" loading="lazy">
-          <figcaption>Logo กิจกรรมเสวนา นั่งรอทอฝัน</figcaption>
-        </figure>
-        <figure class="gallery-item">
-          <img src="assets/images/p9.jpg" alt="Resume พิษณุวัชร์" loading="lazy">
-          <figcaption>Resume พิษณุวัชร์ หงส์วิไล</figcaption>
-        </figure>
-      </div>
-    </section>
+<div class="filter-bar reveal">
+  <button class="fbtn active" data-filter="all">All Works</button>
+  <button class="fbtn" data-filter="event">Event</button>
+  <button class="fbtn" data-filter="brand">Branding</button>
+  <button class="fbtn" data-filter="logo">Logo</button>
+  <button class="fbtn" data-filter="product">Product</button>
+  <button class="fbtn" data-filter="personal">Personal</button>
+</div>
 
-    <section id="video" class="video-section">
-      <h2 class="section-title scroll-hidden">Video Showcase</h2>
-      <div class="video-slider-wrapper">
-        <button class="nav-btn left" onclick="scrollVideo(-1)"><span>‹</span></button>
-        <div class="video-snap" id="videoSnap">
-           <div class="video-card"><iframe src="https://www.youtube.com/embed/4gY8A_vuZq8" frameborder="0" allowfullscreen></iframe></div>
-           <div class="video-card"><iframe src="https://www.youtube.com/embed/ghb58FfTAlE" frameborder="0" allowfullscreen></iframe></div>
-           <div class="video-card"><iframe src="https://www.youtube.com/embed/WSYpeedZBEg" frameborder="0" allowfullscreen></iframe></div>
-           <div class="video-card"><iframe src="https://www.youtube.com/embed/UQHql4HaDB8" frameborder="0" allowfullscreen></iframe></div>
-        </div>
-        <button class="nav-btn right" onclick="scrollVideo(1)"><span>›</span></button>
-      </div>
-    </section>
+<div class="work-list" id="workList">
 
-  </main>
+  <article class="work-card reveal" data-cat="event">
+    <div class="wimg"><span class="wnum">01</span><img src="assets/images/cpesport-3.jpg" alt="CP-ESPORT ROV Grand Final"><div class="wimg-overlay"><span class="zoom-lbl">Zoom</span></div></div>
+    <div class="wtxt">
+      <div class="wtag">Event · Esport</div>
+      <h3 class="wtitle">CP-ESPORT<br>ROV Grand Final</h3>
+      <p class="wdesc">กราฟิกสำหรับกิจกรรม E-sport CP-ESPORT เพื่อคัดเลือกผู้แข่งขันเข้าสู่ KKU GAMES มหาวิทยาลัยขอนแก่น ได้รับแรงบันดาลใจจากการแข่งขัน Formula 1 ที่สื่อถึงการคัดลำดับเพื่อเข้าสู่เส้นชัย ออกแบบให้ทั้งตื่นเต้นและอ่านข้อมูลได้ง่าย</p>
+      <div class="wkeys"><span class="wkey">Event Design</span><span class="wkey">Esport</span><span class="wkey">KKU Games</span><span class="wkey">F1 Concept</span></div>
+    </div>
+  </article>
 
-  <div class="lightbox" id="lightbox">
-    <div class="lightbox-overlay"></div>
-    <div class="lightbox-window">
-      <button class="close-btn">&times;</button>
-      <div class="image-wrapper">
-        <img id="lightbox-img" src="" alt="">
-      </div>
-      <div class="info-panel">
-        <p id="lightbox-desc"></p>
-        <div class="zoom-controls">
-          <button id="zoom-out">−</button>
-          <button id="zoom-in">＋</button>
-        </div>
-      </div>
+  <article class="work-card reveal" data-cat="event">
+    <div class="wimg"><span class="wnum">02</span><img src="assets/images/cpesport-1.jpg" alt="CP-ESPORT Partners"><div class="wimg-overlay"><span class="zoom-lbl">Zoom</span></div></div>
+    <div class="wtxt">
+      <div class="wtag">Event · Partners</div>
+      <h3 class="wtitle">CP-ESPORT<br>Partners Slide</h3>
+      <p class="wdesc">สไลด์แสดง Partners ที่ให้การสนับสนุนกิจกรรม CP-ESPORT ออกแบบให้สอดคล้องกับภาพรวมของอีเวนต์ ใช้ layout ที่สะอาดและชัดเจน เพื่อให้ผู้ชมสามารถรับรู้และจดจำแบรนด์ sponsor ได้ง่าย</p>
+      <div class="wkeys"><span class="wkey">Sponsor Layout</span><span class="wkey">Brand Display</span><span class="wkey">Event</span></div>
+    </div>
+  </article>
+
+  <article class="work-card reveal" data-cat="event">
+    <div class="wimg"><span class="wnum">03</span><img src="assets/images/cpesport-2.jpg" alt="CP-ESPORT Match Schedule"><div class="wimg-overlay"><span class="zoom-lbl">Zoom</span></div></div>
+    <div class="wtxt">
+      <div class="wtag">Event · Schedule</div>
+      <h3 class="wtitle">CP-ESPORT<br>Match Schedule</h3>
+      <p class="wdesc">ตารางการแข่งขัน Round-Robin และ Play-offs ออกแบบให้ผู้ชมสามารถอ่านและติดตามตารางได้ง่าย ใช้ลายตารางหมากรุกที่ได้แรงบันดาลใจจาก F1 สร้างความรู้สึกเร้าใจและตื่นเต้น</p>
+      <div class="wkeys"><span class="wkey">Schedule</span><span class="wkey">Round-Robin</span><span class="wkey">Play-offs</span><span class="wkey">Infographic</span></div>
+    </div>
+  </article>
+
+  <article class="work-card reveal" data-cat="brand">
+    <div class="wimg"><span class="wnum">04</span><img src="assets/images/wassuplarbkoi-strategy.jpg" alt="Wassup Larbkoi Marketing Strategy"><div class="wimg-overlay"><span class="zoom-lbl">Zoom</span></div></div>
+    <div class="wtxt">
+      <div class="wtag">Branding · Strategy</div>
+      <h3 class="wtitle">Wassup Larbkoi<br>Marketing Strategy</h3>
+      <p class="wdesc">โปรเจ็คสร้างแบรนด์ร้านอาหาร Wassup Larbkoi วางรากฐาน Brand Identity ให้ชัดเจน ตั้งแต่โลโก้ โทนการสื่อสาร ไปจนถึง Customer Touchpoint ผสาน "แบรนด์ร้านอาหารท้องถิ่น" เข้ากับเทคโนโลยีดิจิทัล</p>
+      <div class="wkeys"><span class="wkey">Marketing Strategy</span><span class="wkey">Positioning</span><span class="wkey">Infographic</span></div>
+    </div>
+  </article>
+
+  <article class="work-card reveal" data-cat="brand">
+    <div class="wimg"><span class="wnum">05</span><img src="assets/images/wassuplarbkoi-logo.jpg" alt="Wassup Larbkoi Brand Identity"><div class="wimg-overlay"><span class="zoom-lbl">Zoom</span></div></div>
+    <div class="wtxt">
+      <div class="wtag">Branding · Restaurant</div>
+      <h3 class="wtitle">Wassup Larbkoi<br>Brand Identity</h3>
+      <p class="wdesc">กำหนด Positioning ให้ร้านสะท้อนคุณภาพวัตถุดิบและความใส่ใจในบริการ แสดงกระบวนการ 5 ขั้นตอน Preparation → Cooking → Plating → Service → Evaluation เพื่อให้แบรนด์สื่อสารตัวตนได้อย่างสม่ำเสมอ</p>
+      <div class="wkeys"><span class="wkey">Brand Identity</span><span class="wkey">Logo</span><span class="wkey">Restaurant</span><span class="wkey">Digital</span></div>
+    </div>
+  </article>
+
+  <article class="work-card reveal" data-cat="logo">
+    <div class="wimg"><span class="wnum">06</span><img src="assets/images/logo-jangvutkk.jpg" alt="Logo จังหวัดข.ไข่"><div class="wimg-overlay"><span class="zoom-lbl">Zoom</span></div></div>
+    <div class="wtxt">
+      <div class="wtag">Logo Design</div>
+      <h3 class="wtitle">Logo<br>จังหวัด ข.ไข่</h3>
+      <p class="wdesc">ออกแบบโลโก้สำหรับโปรเจ็คแอพพลิเคชั่นจังหวัดข.ไข่ กำหนด Brand Personality ให้สอดคล้องกับบริบท พัฒนาเป็นสัญลักษณ์และตัวอักษรที่สื่อความหมายได้กระชับ จดจำง่าย และใช้งานได้หลากหลายแพลตฟอร์ม</p>
+      <div class="wkeys"><span class="wkey">Logo</span><span class="wkey">Brand Personality</span><span class="wkey">Typography</span></div>
+    </div>
+  </article>
+
+  <article class="work-card reveal" data-cat="logo">
+    <div class="wimg"><span class="wnum">07</span><img src="assets/images/logo-sitwaitdreaming.jpg" alt="Logo นั่งรอทอฝัน"><div class="wimg-overlay"><span class="zoom-lbl">Zoom</span></div></div>
+    <div class="wtxt">
+      <div class="wtag">Logo Design</div>
+      <h3 class="wtitle">Logo กิจกรรมเสวนา<br>นั่งรอทอฝัน</h3>
+      <p class="wdesc">โลโก้กิจกรรมเสวนาที่ถ่ายทอดอัตลักษณ์ผ่านตัวอักษรไทยสไตล์คัดลายมือ สร้างความรู้สึกเป็นกันเองและอบอุ่น เหมาะสำหรับกิจกรรมที่ต้องการบรรยากาศแห่งการพูดคุย แลกเปลี่ยน และแรงบันดาลใจ</p>
+      <div class="wkeys"><span class="wkey">Logo</span><span class="wkey">Thai Typography</span><span class="wkey">Calligraphy</span></div>
+    </div>
+  </article>
+
+  <article class="work-card reveal" data-cat="product">
+    <div class="wimg"><span class="wnum">08</span><img src="assets/images/shirt -dektun.jpg" alt="Dek-Tun Shirt"><div class="wimg-overlay"><span class="zoom-lbl">Zoom</span></div></div>
+    <div class="wtxt">
+      <div class="wtag">Product · Apparel</div>
+      <h3 class="wtitle">Dek-Tun<br>Polo Shirt Design</h3>
+      <p class="wdesc">ออกแบบเสื้อโปโลภายใต้โจทย์ "สะท้อนถึงแบรนด์" ถ่ายทอดอัตลักษณ์องค์กรผ่านงานออกแบบที่เรียบง่ายแต่ทรงพลัง เลือกโทนสีหลักของแบรนด์เพื่อสร้าง Brand Recognition ที่ชัดเจนในทุกบริบท</p>
+      <div class="wkeys"><span class="wkey">Apparel</span><span class="wkey">Brand Recognition</span><span class="wkey">Polo Shirt</span><span class="wkey">Uniform</span></div>
+    </div>
+  </article>
+
+  <article class="work-card reveal" data-cat="personal">
+    <div class="wimg"><span class="wnum">09</span><img src="assets/images/resume.jpg" alt="Resume Phisanuwat"><div class="wimg-overlay"><span class="zoom-lbl">Zoom</span></div></div>
+    <div class="wtxt">
+      <div class="wtag">Personal · Resume</div>
+      <h3 class="wtitle">Creative Resume<br>Collage Style</h3>
+      <p class="wdesc">เรซูเม่ออกแบบภายใต้แนวคิด "ตัวตน" ผสานงานกราฟิกสไตล์คอลลาจเข้ากับ Emotional Design และโครงสร้างข้อมูลที่ชัดเจน ทุก element ตั้งแต่ Typography, Layout ถึง Visual Metaphor สะท้อน Creative Strategy และ Brand Communication</p>
+      <div class="wkeys"><span class="wkey">Collage</span><span class="wkey">Emotional Design</span><span class="wkey">Typography</span><span class="wkey">Personal Brand</span></div>
+    </div>
+  </article>
+
+</div>
+
+<div class="sec-header reveal">
+  <div class="sec-title-wrap"><span class="sec-num">02</span><h2 class="sec-title" id="video">Video Showcase</h2></div>
+  <span class="sec-sub">Motion & Editing Works</span>
+</div>
+
+<div class="video-grid reveal">
+  <div class="vid-card"><div class="vid-label"><span>Video Work</span><span>01</span></div><iframe src="https://www.youtube.com/embed/4gY8A_vuZq8" allowfullscreen loading="lazy"></iframe></div>
+  <div class="vid-card"><div class="vid-label"><span>Video Work</span><span>02</span></div><iframe src="https://www.youtube.com/embed/ghb58FfTAlE" allowfullscreen loading="lazy"></iframe></div>
+  <div class="vid-card"><div class="vid-label"><span>Video Work</span><span>03</span></div><iframe src="https://www.youtube.com/embed/WSYpeedZBEg" allowfullscreen loading="lazy"></iframe></div>
+  <div class="vid-card"><div class="vid-label"><span>Video Work</span><span>04</span></div><iframe src="https://www.youtube.com/embed/UQHql4HaDB8" allowfullscreen loading="lazy"></iframe></div>
+</div>
+
+<section id="about" class="info-strip">
+  <div class="iblock reveal">
+    <h3>About</h3>
+    <p>นักศึกษาสาขาวิทยาการคอมพิวเตอร์ มหาวิทยาลัยขอนแก่น มุ่งมั่นในการสร้างสรรค์สื่อและออกแบบกราฟิกที่ผสมผสานความคิดสร้างสรรค์กับกลยุทธ์ด้านแบรนด์และการสื่อสาร</p>
+  </div>
+  <div class="iblock reveal">
+    <h3>Skills</h3>
+    <div class="skill-list">
+      <div class="skill-row"><span class="skill-name">Graphic Design</span><div class="skill-track"><div class="skill-fill" data-w="90"></div></div></div>
+      <div class="skill-row"><span class="skill-name">Video Editing</span><div class="skill-track"><div class="skill-fill" data-w="85"></div></div></div>
+      <div class="skill-row"><span class="skill-name">Brand Strategy</span><div class="skill-track"><div class="skill-fill" data-w="80"></div></div></div>
+      <div class="skill-row"><span class="skill-name">Photography</span><div class="skill-track"><div class="skill-fill" data-w="75"></div></div></div>
+      <div class="skill-row"><span class="skill-name">Art Direction</span><div class="skill-track"><div class="skill-fill" data-w="70"></div></div></div>
     </div>
   </div>
+  <div class="iblock reveal">
+    <h3>Contact</h3>
+    <ul>
+      <li>062-387-4860</li>
+      <li>phisanuwat.h@kkumail.com</li>
+      <li>Khon Kaen 40000</li>
+      <li>Available for Freelance</li>
+    </ul>
+  </div>
+</section>
 
-  <script src="assets/js/gallery.js"></script>
-  <footer class="main-footer scroll-hidden">
-    <div class="container footer-grid">
-      
-      <div class="footer-about">
-        <h2 class="footer-logo">PH<span>.</span></h2>
-        <p>นักศึกษาวิทยาลัยการคอมพิวเตอร์ มหาวิทยาลัยขอนแก่น มุ่งมั่นในการสร้างสรรค์สื่อและเทคโนโลยีที่ผสมผสานความร่วมสมัยและฟังก์ชันการใช้งานอย่างลงตัว</p>
-      </div>
+<footer>
+  <p>© 2026 Phisanuwat Hongwilai — All Rights Reserved</p>
+  <div class="footer-tags"><span>#Creative</span><span>#Editor</span><span>#CS@KKU</span></div>
+</footer>
 
-      <div class="footer-contact">
-        <h3>Contact</h3>
-        <ul>
-          <li><strong>Phone:</strong> 062-387-4860</li>
-          <li><strong>Email:</strong> phisanuwat.h@kkumail.com</li>
-          <li><strong>Location:</strong> 558/12 โนนม่วง, ศิลา, ขอนแก่น 40000</li>
-        </ul>
-      </div>
+<div class="lightbox" id="lightbox">
+  <button class="lb-close" id="lbClose">Close ×</button>
+  <div class="lb-nav prev"><button id="lbPrev">‹</button></div>
+  <div class="lb-inner"><img id="lbImg" src="" alt=""><div class="lb-cap" id="lbCap"></div></div>
+  <div class="lb-nav next"><button id="lbNext">›</button></div>
+</div>
 
-      <div class="footer-links">
-        <h3>Quick Links</h3>
-        <nav>
-          <a href="#gallery">Gallery</a>
-          <a href="#video">Video Showcase</a>
-          <a href="mailto:phisanuwat.h@kkumail.com">Hire Me</a>
-        </nav>
-      </div>
+<script>
+  // Reveal on scroll
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) { setTimeout(() => e.target.classList.add('in'), i * 55); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-    </div>
+  // Skill bars
+  const sObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-fill').forEach(b => b.style.width = b.dataset.w + '%');
+        sObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.3 });
+  document.querySelectorAll('.skill-list').forEach(el => sObs.observe(el));
 
-    <div class="footer-bottom">
-      <p>&copy; 2026 Phisanuwat Hongwilai. All Rights Reserved.</p>
-      <div class="social-tags">
-        <span>#Creative</span>
-        <span>#Editor</span>
-        <span>#ComputerScience</span>
-      </div>
-    </div>
-  </footer>
+  // Filter
+  document.querySelectorAll('.fbtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const f = btn.dataset.filter;
+      document.querySelectorAll('.work-card').forEach(c => {
+        c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none';
+      });
+    });
+  });
+
+  // Lightbox
+  const lb = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lbImg');
+  const lbCap = document.getElementById('lbCap');
+  let cards = [], idx = 0;
+
+  const vis = () => [...document.querySelectorAll('.work-card')].filter(c => c.style.display !== 'none');
+  const upd = () => { lbImg.src = cards[idx].querySelector('img').src; lbCap.textContent = cards[idx].querySelector('.wtitle').innerText.replace(/\s+/g, ' ').trim(); };
+  const close = () => { lb.classList.remove('open'); document.body.style.overflow = ''; };
+
+  document.querySelectorAll('.wimg').forEach(w => {
+    w.addEventListener('click', () => { cards = vis(); idx = cards.indexOf(w.closest('.work-card')); upd(); lb.classList.add('open'); document.body.style.overflow = 'hidden'; });
+  });
+  document.getElementById('lbClose').addEventListener('click', close);
+  document.getElementById('lbPrev').addEventListener('click', () => { idx = (idx - 1 + cards.length) % cards.length; upd(); });
+  document.getElementById('lbNext').addEventListener('click', () => { idx = (idx + 1) % cards.length; upd(); });
+  lb.addEventListener('click', e => { if (e.target === lb) close(); });
+  document.addEventListener('keydown', e => {
+    if (!lb.classList.contains('open')) return;
+    if (e.key === 'Escape') close();
+    if (e.key === 'ArrowLeft') { idx = (idx - 1 + cards.length) % cards.length; upd(); }
+    if (e.key === 'ArrowRight') { idx = (idx + 1) % cards.length; upd(); }
+  });
+</script>
 </body>
 </html>

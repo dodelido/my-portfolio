@@ -1,15 +1,15 @@
 :root {
-  --bg-color: #f0ebdf;       /* Black: พื้นหลังดำลึก */
-  --accent-color: #ffffff;   /* Yellow: สีเหลืองสดใสแบบปุ่มใน Resume */
-  --cream-color: #fdfcf0;    /* Cream: สีครีมสะอาดตา */
-  --glass-bg: rgba(240, 235, 223 0.03);
-  --glass-border: rgba(240, 235, 223, 0.1);
-  --transition-smooth: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
-  
-  /* Aura Colors ใหม่ */
-  --aura-1: #508dff; /* Yellow */
-  --aura-2: #1900ff; /* Cream */
-  --aura-3: #e139e7; /* Dark Grey */
+    /* Color Palette จากสไลด์ */
+    --bg-dark: #121412;        /* เขียวดำลึก */
+    --paper-cream: #f4f1ea;    /* สีครีมกระดาษ */
+    --sage-green: #84a59d;     /* เขียวตุ่นแบบในสไลด์ */
+    --earth-brown: #a68a64;    /* น้ำตาลทราย */
+    --accent-yellow: #f5cb5c;  /* เหลืองมัสตาร์ด */
+    
+    /* Glass & Effects */
+    --glass-bg: rgba(244, 241, 234, 0.05);
+    --glass-border: rgba(244, 241, 234, 0.1);
+    --transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
